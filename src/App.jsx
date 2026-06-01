@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate, NavLink } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "./styles/App.css";
 
@@ -42,6 +42,10 @@ function AppContent() {
           role: userData?.role || "user",
           loading: false,
         });
+
+        // Redirect to dashboard if landing on an auth page with an active session
+        const p = window.location.pathname;
+        if (p === "/" || p === "/login") navigate("/dashboard", { replace: true });
 
         // Initialize notifications when user logs in
         const granted = await requestNotificationPermission();
@@ -86,8 +90,8 @@ function AppContent() {
         {!isAuthPage && <Topbar isRecording={isRecording} user={user} />}
 
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/" element={user.uid ? <Navigate to="/dashboard" replace /> : <Landing />} />
+          <Route path="/login" element={user.uid ? <Navigate to="/dashboard" replace /> : <Login onLogin={handleLogin} />} />
           <Route path="/dashboard" element={<Dashboard {...sharedProps} />} />
           <Route path="/tracking" element={<Tracking {...sharedProps} />} />
           <Route path="/scan" element={<AIScan user={user} />} />
