@@ -1,0 +1,80 @@
+.helmet-viewer-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0a0e27 0%, #16213e 50%, #0f0f1e 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.helmet-viewer-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.helmet-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  color: #00d4ff;
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 245, 255, 0.4);
+}
+
+.helmet-info h2 {
+  font-size: 2.5rem;
+  margin: 0;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.helmet-info p {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #00f5ff;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 245, 255, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(0, 212, 255, 1), 0 0 60px rgba(0, 245, 255, 0.6);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .helmet-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .helmet-info p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Scrollbar styling for the container */
+.helmet-viewer-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.helmet-viewer-container::-webkit-scrollbar-track {
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.helmet-viewer-container::-webkit-scrollbar-thumb {
+  background: #00d4ff;
+  border-radius: 4px;
+}
