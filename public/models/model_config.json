@@ -1,0 +1,139 @@
+{
+  "modelFile": "helmguard_scalp_model.onnx",
+  "modelSize": "~4MB",
+  "inputSize": 224,
+  "numClasses": 10,
+  "classNames": [
+    "alopecia_areata",
+    "contact_dermatitis",
+    "folliculitis",
+    "head_lice",
+    "lichen_planus",
+    "male_pattern_baldness",
+    "psoriasis",
+    "seborrheic_dermatitis",
+    "telogen_effluvium",
+    "tinea_capitis"
+  ],
+  "classDisplayNames": {
+    "alopecia_areata": "Alopecia Areata",
+    "contact_dermatitis": "Contact Dermatitis",
+    "folliculitis": "Folliculitis",
+    "head_lice": "Head Lice",
+    "lichen_planus": "Lichen Planus",
+    "male_pattern_baldness": "Male Pattern Baldness",
+    "psoriasis": "Psoriasis",
+    "seborrheic_dermatitis": "Seborrheic Dermatitis",
+    "telogen_effluvium": "Telogen Effluvium",
+    "tinea_capitis": "Tinea Capitis"
+  },
+  "classMetadata": {
+    "alopecia_areata": {
+      "severity": "moderate",
+      "riskScore": 6.5,
+      "description": "Patchy hair loss caused by autoimmune attack on hair follicles.",
+      "recommendations": [
+        "Consult a dermatologist for corticosteroid treatment options",
+        "Avoid harsh chemicals and tight hairstyles",
+        "Consider minoxidil application as prescribed"
+      ]
+    },
+    "contact_dermatitis": {
+      "severity": "mild",
+      "riskScore": 3.5,
+      "description": "Skin inflammation caused by direct contact with irritants or allergens.",
+      "recommendations": [
+        "Identify and avoid the trigger substance (helmet liner, shampoo, dye)",
+        "Apply hypoallergenic moisturizer to affected areas",
+        "Use fragrance-free, sulfate-free shampoo"
+      ]
+    },
+    "folliculitis": {
+      "severity": "moderate",
+      "riskScore": 5.5,
+      "description": "Infection of hair follicles causing red, inflamed bumps.",
+      "recommendations": [
+        "Keep scalp clean and dry — wash after heavy sweating",
+        "Apply antibacterial or antifungal shampoo (ketoconazole)",
+        "Clean helmet liner regularly to prevent bacterial buildup"
+      ]
+    },
+    "head_lice": {
+      "severity": "mild",
+      "riskScore": 4.0,
+      "description": "Parasitic infestation causing intense scalp itching.",
+      "recommendations": [
+        "Use medicated lice treatment shampoo (permethrin-based)",
+        "Wash all headwear, bedding, and towels in hot water",
+        "Do not share helmets or hair accessories"
+      ]
+    },
+    "lichen_planus": {
+      "severity": "high",
+      "riskScore": 8.0,
+      "description": "Inflammatory condition that can cause scarring hair loss.",
+      "recommendations": [
+        "Seek dermatologist evaluation urgently — can cause permanent hair loss",
+        "Topical corticosteroids may be prescribed",
+        "Avoid scratching or picking affected areas"
+      ]
+    },
+    "male_pattern_baldness": {
+      "severity": "low",
+      "riskScore": 2.5,
+      "description": "Genetic hair thinning pattern, typically at crown and temples.",
+      "recommendations": [
+        "Consider FDA-approved treatments (minoxidil, finasteride)",
+        "Avoid tight helmets that add traction stress",
+        "Scalp massage may improve blood circulation"
+      ]
+    },
+    "psoriasis": {
+      "severity": "moderate",
+      "riskScore": 6.0,
+      "description": "Chronic autoimmune condition causing thick, scaly patches.",
+      "recommendations": [
+        "Use medicated shampoo with coal tar or salicylic acid",
+        "Keep scalp moisturized — apply coconut or tea tree oil",
+        "Consult dermatologist for phototherapy or systemic treatment"
+      ]
+    },
+    "seborrheic_dermatitis": {
+      "severity": "mild",
+      "riskScore": 3.0,
+      "description": "Common condition causing flaky, itchy, red skin (severe dandruff).",
+      "recommendations": [
+        "Use anti-dandruff shampoo with zinc pyrithione or ketoconazole",
+        "Wash hair regularly — don't let oil accumulate",
+        "Clean helmet liner weekly to reduce fungal growth"
+      ]
+    },
+    "telogen_effluvium": {
+      "severity": "moderate",
+      "riskScore": 5.0,
+      "description": "Temporary excessive hair shedding due to stress or health changes.",
+      "recommendations": [
+        "Identify and address underlying stressor (diet, sleep, illness)",
+        "Ensure adequate protein, iron, and vitamin D intake",
+        "Hair typically regrows within 6-9 months"
+      ]
+    },
+    "tinea_capitis": {
+      "severity": "high",
+      "riskScore": 7.5,
+      "description": "Fungal infection (ringworm) of the scalp causing patches and hair loss.",
+      "recommendations": [
+        "Requires oral antifungal medication — see a doctor",
+        "Use antifungal shampoo (selenium sulfide) as adjunct",
+        "Disinfect or replace helmet liner immediately"
+      ]
+    }
+  },
+  "normalization": {
+    "mean": [0.485, 0.456, 0.406],
+    "std": [0.229, 0.224, 0.225]
+  },
+  "version": "1.0.0",
+  "architecture": "mobilenetv3_small_100",
+  "note": "Place helmguard_scalp_model.onnx in this folder after training. See ml/README.md for instructions."
+}

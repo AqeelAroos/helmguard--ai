@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { analyzeScalpImage, compressImageToBase64, captureFrameAsBase64 } from "../services/gemini";
+import { analyzeScalp, compressImageToBase64, captureFrameAsBase64, getAnalysisMethod, validateImageQuality } from "../services/scalpAnalyzer";
 import { saveScan } from "../services/firestoreService";
 import { useScalpScans } from "../hooks/useScalpScans";
 import { useSubscription } from "../hooks/useSubscription";
@@ -224,17 +224,38 @@ export default function AIScan({ user }) {
     setScanStep(0);
     const stepTimer = setInterval(() => {
       setScanStep(s => { if (s >= STEPS.length - 1) { clearInterval(stepTimer); return s; } return s + 1; });
-    }, 1000);
+    }, 800);
 
     try {
-      const analysisResult = await analyzeScalpImage(base64, mimeType);
+      // Image quality validation
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = `data:${mimeType};base64,${base64}`;
+      });
+      const quality = validateImageQuality(img);
+      if (!quality.isValid) {
+        clearInterval(stepTimer);
+        setErrorMsg(`Image quality issue:\n\n${quality.issues.join("\n")}\n\nPlease retake the photo with better conditions.`);
+        setPhase("error");
+        return;
+      }
+
+      // Run hybrid analysis (local ML → Gemini fallback)
+      const analysisResult = await analyzeScalp(base64, mimeType);
       clearInterval(stepTimer);
       setScanStep(STEPS.length - 1);
       setResult(analysisResult);
+
+      // Show which method was used
+      const method = analysisResult._method === "local_ml" ? "On-Device AI" : "Gemini Cloud";
+      toast.success(`Analysis complete (${method})`, { icon: "🧬" });
+
       if (user?.uid) {
-        try { await saveScan(user.uid, { imageDataUrl: `data:${mimeType};base64,${base64}`, analysisResult }); refresh(); toast.success("Scan saved"); } catch {}
+        try { await saveScan(user.uid, { imageDataUrl: `data:${mimeType};base64,${base64}`, analysisResult }); refresh(); } catch {}
       }
-      setTimeout(() => setPhase("result"), 500);
+      setTimeout(() => setPhase("result"), 400);
     } catch (err) {
       clearInterval(stepTimer);
       setErrorMsg(err.message || "Analysis failed.");
