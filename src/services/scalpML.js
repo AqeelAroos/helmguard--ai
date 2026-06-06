@@ -200,14 +200,18 @@ export async function runScalpInference(imageElement) {
 
   const inferenceTime = Math.round(performance.now() - startTime);
 
-  // Build results
-  const predictions = config.classNames.map((name, i) => ({
-    className: name,
-    displayName: config.classDisplayNames[name] || name,
-    probability: probabilities[i],
-    percentage: Math.round(probabilities[i] * 1000) / 10,
-    metadata: config.classMetadata[name] || {},
-  }));
+  // Build results — handle both "Alopecia Areata" and "alopecia_areata" key formats
+  const toKey = (name) => name.toLowerCase().replace(/\s+/g, "_");
+  const predictions = config.classNames.map((name, i) => {
+    const key = toKey(name);
+    return {
+      className: name,
+      displayName: config.classDisplayNames[name] || config.classDisplayNames[key] || name,
+      probability: probabilities[i],
+      percentage: Math.round(probabilities[i] * 1000) / 10,
+      metadata: config.classMetadata[name] || config.classMetadata[key] || {},
+    };
+  });
 
   // Sort by probability (highest first)
   predictions.sort((a, b) => b.probability - a.probability);

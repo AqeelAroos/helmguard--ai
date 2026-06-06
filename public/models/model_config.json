@@ -1,19 +1,19 @@
 {
   "modelFile": "helmguard_scalp_model.onnx",
-  "modelSize": "~4MB",
+  "modelSize": "5.8MB",
   "inputSize": 224,
   "numClasses": 10,
   "classNames": [
-    "alopecia_areata",
-    "contact_dermatitis",
-    "folliculitis",
-    "head_lice",
-    "lichen_planus",
-    "male_pattern_baldness",
-    "psoriasis",
-    "seborrheic_dermatitis",
-    "telogen_effluvium",
-    "tinea_capitis"
+    "Alopecia Areata",
+    "Contact Dermatitis",
+    "Folliculitis",
+    "Head Lice",
+    "Lichen Planus",
+    "Male Pattern Baldness",
+    "Psoriasis",
+    "Seborrheic Dermatitis",
+    "Telogen Effluvium",
+    "Tinea Capitis"
   ],
   "classDisplayNames": {
     "alopecia_areata": "Alopecia Areata",
