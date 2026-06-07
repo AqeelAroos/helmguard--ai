@@ -55,7 +55,7 @@ function PremiumPaywall({ onUpgrade }) {
     <div className="page page-enter">
       <div style={{ marginBottom: 28 }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 800, letterSpacing: "-0.5px", marginBottom: 6 }}>AI Scalp Scan</h2>
-        <p style={{ color: "var(--hg-muted)", fontSize: 13.5 }}>Powered by Google Gemini Vision — real clinical-grade scalp analysis.</p>
+        <p style={{ color: "var(--hg-muted)", fontSize: 13.5 }}>Powered by Groq Vision AI — real clinical-grade scalp analysis.</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 20, alignItems: "start" }}>
@@ -88,7 +88,7 @@ function PremiumPaywall({ onUpgrade }) {
             </h3>
 
             <p style={{ color: "var(--hg-muted)", fontSize: 14, lineHeight: 1.7, maxWidth: 380, marginBottom: 32 }}>
-              AI Scalp Scanning uses advanced Gemini Vision to analyze your scalp with clinical precision.
+              AI Scalp Scanning uses advanced Groq Vision AI to analyze your scalp with clinical precision.
               Upgrade to Pro to unlock unlimited scans, reports, and trend tracking.
             </p>
 
@@ -242,14 +242,14 @@ export default function AIScan({ user }) {
         return;
       }
 
-      // Run hybrid analysis (local ML → Gemini fallback)
+      // Run hybrid analysis (local ML → Groq fallback)
       const analysisResult = await analyzeScalp(base64, mimeType);
       clearInterval(stepTimer);
       setScanStep(STEPS.length - 1);
       setResult(analysisResult);
 
       // Show which method was used
-      const method = analysisResult._method === "local_ml" ? "On-Device AI" : "Gemini Cloud";
+      const method = analysisResult._method === "local_ml" ? "On-Device AI" : "Groq Vision AI";
       toast.success(`Analysis complete (${method})`, { icon: "🧬" });
 
       if (user?.uid) {
@@ -276,7 +276,7 @@ export default function AIScan({ user }) {
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 800, letterSpacing: "-0.5px" }}>AI Scalp Scan</h2>
           <span className="badge violet">PRO</span>
         </div>
-        <p style={{ color: "var(--hg-muted)", fontSize: 13.5 }}>Powered by Google Gemini Vision — real clinical-grade scalp analysis in seconds.</p>
+        <p style={{ color: "var(--hg-muted)", fontSize: 13.5 }}>Powered by Groq Vision AI — real clinical-grade scalp analysis in seconds.</p>
       </div>
 
       <input type="file" ref={fileInputRef} accept="image/*" style={{ display: "none" }} onChange={handleFileUpload} />

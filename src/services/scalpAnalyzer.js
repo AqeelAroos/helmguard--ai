@@ -1,14 +1,14 @@
 /**
  * HelmGuard AI — Hybrid Scalp Analyzer
  * Tries local ONNX model first (free, instant, offline).
- * Falls back to Gemini API if local model unavailable (premium).
+ * Falls back to Groq Vision API if local model unavailable.
  */
 
 import { isModelAvailable, analyzeFromBase64, analyzeFromVideo, validateImageQuality } from "./scalpML";
-import { analyzeScalpImage as geminiAnalyze } from "./gemini";
+import { analyzeScalpImage as groqAnalyze } from "./groq";
 
 export { validateImageQuality } from "./scalpML";
-export { compressImageToBase64, captureFrameAsBase64 } from "./gemini";
+export { compressImageToBase64, captureFrameAsBase64 } from "./groq";
 
 /**
  * Analyze a scalp image using the best available method.
@@ -28,23 +28,23 @@ export async function analyzeScalp(base64Data, mimeType = "image/jpeg") {
       result._method = "local_ml";
       return result;
     } catch (e) {
-      console.warn("[Analyzer] Local model failed, trying Gemini:", e.message);
+      console.warn("[Analyzer] Local model failed, trying Groq:", e.message);
     }
   }
 
-  // ── Strategy 2: Gemini API (premium, cloud-based) ──
+  // ── Strategy 2: Groq Vision API (fast, free tier) ──
   try {
-    console.log("[Analyzer] Using Gemini API");
-    const result = await geminiAnalyze(base64Data, mimeType);
-    result._method = "gemini_api";
+    console.log("[Analyzer] Using Groq Vision API");
+    const result = await groqAnalyze(base64Data, mimeType);
+    result._method = "groq_api";
     return result;
   } catch (e) {
-    // If Gemini also fails, provide a helpful error
-    if (e.message === "GEMINI_KEY_MISSING" && !localAvailable) {
+    // If Groq also fails, provide a helpful error
+    if (e.message === "GROQ_KEY_MISSING" && !localAvailable) {
       throw new Error(
         "No AI model available.\n\n" +
         "Option 1: Train and deploy the local ML model (see ml/README.md)\n" +
-        "Option 2: Add a Gemini API key to .env.local"
+        "Option 2: Add a Groq API key to .env.local (free at https://console.groq.com)"
       );
     }
     throw e;
@@ -74,10 +74,10 @@ export async function analyzeFromCamera(videoElement) {
  */
 export async function getAnalysisMethod() {
   const local = await isModelAvailable();
-  const hasGemini = !!import.meta.env.VITE_GEMINI_API_KEY;
+  const hasGroq = !!import.meta.env.VITE_GROQ_API_KEY;
 
-  if (local && hasGemini) return { method: "hybrid", label: "Local AI + Gemini Cloud", icon: "🧬" };
+  if (local && hasGroq) return { method: "hybrid", label: "Local AI + Groq Cloud", icon: "🧬" };
   if (local) return { method: "local", label: "On-Device AI (MobileNetV3)", icon: "📱" };
-  if (hasGemini) return { method: "gemini", label: "Gemini Cloud AI", icon: "☁️" };
+  if (hasGroq) return { method: "groq", label: "Groq Vision AI (LLaMA)", icon: "⚡" };
   return { method: "none", label: "No AI configured", icon: "⚠️" };
 }
