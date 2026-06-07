@@ -176,7 +176,7 @@ export default function Dashboard({ isRecording, setIsRecording, elapsed, setEla
       {latestResult && (
         <div className="card accent" style={{ marginBottom: 24 }}>
           <div className="card-header"><span className="card-title">Latest AI Scan Summary</span><span className="badge teal">{latestScan?.createdAt?.toDate?.()?.toLocaleDateString("en", { month: "short", day: "numeric" }) ?? "Recent"}</span></div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12 }}>
+          <div className="mobile-grid-2col" style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12 }}>
             {[
               { l: "Redness", v: latestResult.redness_score, c: "var(--hg-red)" },
               { l: "Dryness", v: latestResult.dryness_score, c: "var(--hg-amber)" },

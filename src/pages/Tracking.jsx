@@ -37,7 +37,7 @@ export default function Tracking({ isRecording, setIsRecording, elapsed, setElap
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div className="card">
             <div className="card-header"><span className="card-title">Monthly Summary</span></div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
+            <div className="mobile-grid-2col" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>
               {[
                 ["Total", `${monthH}h`, "var(--hg-primary)", "⏱️"],
                 ["Avg/Ride", `${avgH}h`, "var(--hg-blue)", "📈"],
@@ -83,7 +83,7 @@ export default function Tracking({ isRecording, setIsRecording, elapsed, setElap
             No sessions yet. Press "Start Ride" to begin tracking.
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div className="mobile-scroll-table" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {/* Table header */}
             <div style={{ display: "grid", gridTemplateColumns: "100px 80px 80px 90px 70px 60px 1fr", gap: 8, padding: "8px 12px", borderBottom: "1px solid var(--hg-border)" }}>
               {["Date", "Start", "End", "Duration", "Risk", "Pauses", "Heat"].map(h => (

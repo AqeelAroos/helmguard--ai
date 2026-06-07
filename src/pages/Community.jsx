@@ -29,7 +29,7 @@ export default function Community() {
         </button>
       </div>
 
-      <div className="grid-2" style={{ gridTemplateColumns: "1fr 320px", gap: 20, alignItems: "start" }}>
+      <div className="grid-2-sidebar">
         
         {/* Discussion List */}
         <div className="card" style={{ padding: 0 }}>

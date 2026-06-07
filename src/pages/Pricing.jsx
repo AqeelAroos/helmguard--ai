@@ -31,7 +31,7 @@ export default function Pricing({ user }) {
         </p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, maxWidth: 800, margin: "0 auto" }}>
+      <div className="mobile-grid-stack" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, maxWidth: 800, margin: "0 auto" }}>
         {/* FREE PLAN */}
         <div className="card" style={{
           padding: 32,

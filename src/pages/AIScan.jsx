@@ -58,7 +58,7 @@ function PremiumPaywall({ onUpgrade }) {
         <p style={{ color: "var(--hg-muted)", fontSize: 13.5 }}>Powered by Groq Vision AI — real clinical-grade scalp analysis.</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 20, alignItems: "start" }}>
+      <div className="grid-2-sidebar">
         {/* Main paywall card */}
         <div className="card" style={{
           minHeight: 520, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -93,7 +93,7 @@ function PremiumPaywall({ onUpgrade }) {
             </p>
 
             {/* Feature preview */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32, textAlign: "left" }}>
+            <div className="mobile-grid-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32, textAlign: "left" }}>
               {[
                 ["🧬", "Follicle Mapping", "Detect thinning patterns"],
                 ["🔴", "Redness Detection", "Inflammation scoring"],
@@ -281,7 +281,7 @@ export default function AIScan({ user }) {
 
       <input type="file" ref={fileInputRef} accept="image/*" style={{ display: "none" }} onChange={handleFileUpload} />
 
-      <div className="grid-2" style={{ gridTemplateColumns: "1fr 380px", alignItems: "start" }}>
+      <div className="grid-2-sidebar">
         <div className="card" style={{ minHeight: 520, padding: 0, overflow: "hidden", position: "relative", display: "flex" }}>
 
           {phase === "idle" && (
@@ -343,9 +343,9 @@ export default function AIScan({ user }) {
           )}
 
           {phase === "result" && result && (
-            <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+            <div className="scan-result-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
               {preview && (
-                <div style={{ width: 180, flexShrink: 0, position: "relative", overflow: "hidden" }}>
+                <div className="scan-result-image" style={{ width: 180, flexShrink: 0, position: "relative", overflow: "hidden" }}>
                   <img src={preview} alt="scan" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "24px 12px 12px", background: "linear-gradient(transparent, rgba(0,0,0,0.85))" }}>
                     <div style={{ fontSize: 10, color: "rgba(255,255,255,0.6)" }}>CONFIDENCE</div>
@@ -353,7 +353,7 @@ export default function AIScan({ user }) {
                   </div>
                 </div>
               )}
-              <div style={{ flex: 1, overflowY: "auto", padding: 24 }}>
+              <div className="scan-result-content" style={{ flex: 1, overflowY: "auto", padding: 24 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, paddingBottom: 16, borderBottom: "1px solid var(--hg-border)" }}>
                   <div>
                     <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, marginBottom: 4 }}>Clinical Report</h3>
@@ -363,7 +363,7 @@ export default function AIScan({ user }) {
                     {result.urgent_attention_needed ? "⚠ Urgent" : result.overall_risk_score > 6 ? "High Risk" : "Monitored"}
                   </span>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20 }}>
+                <div className="mobile-grid-stack" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20 }}>
                   <RiskGauge score={result.overall_risk_score} />
                   <div style={{ textAlign: "center", padding: 10, background: "rgba(255,255,255,0.02)", borderRadius: 10, border: "1px solid var(--hg-border)" }}>
                     <div style={{ fontSize: 10, color: "var(--hg-muted)", marginBottom: 4, textTransform: "uppercase" }}>Thinning</div>
