@@ -15,14 +15,24 @@ export function useSubscription(uid) {
   useEffect(() => { refresh(); }, [uid]);
 
   const upgrade = async () => {
-    const newPlan = await upgradeToPremium(uid);
-    setPlan(newPlan);
-    return newPlan;
+    try {
+      const newPlan = await upgradeToPremium(uid);
+      setPlan(newPlan);
+      return newPlan;
+    } catch (err) {
+      console.error("Upgrade failed:", err);
+      throw err;
+    }
   };
 
   const downgrade = async () => {
-    await downgradeToFree(uid);
-    setPlan("free");
+    try {
+      await downgradeToFree(uid);
+      setPlan("free");
+    } catch (err) {
+      console.error("Downgrade failed:", err);
+      throw err;
+    }
   };
 
   const isPremium = plan === "premium";

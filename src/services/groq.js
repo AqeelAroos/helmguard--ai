@@ -10,7 +10,12 @@ export async function analyzeScalpImage(base64Data, mimeType = "image/jpeg") {
     body: JSON.stringify({ base64Data, mimeType }),
   });
 
-  const data = await res.json();
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error("GROQ_KEY_MISSING");
+  }
 
   if (!res.ok) {
     throw new Error(data.error || "Analysis failed");
